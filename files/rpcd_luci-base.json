@@ -124,7 +124,7 @@
 			},
 			"uci": [ "firewall" ]
 		}
-	}
+	},
 	"luci-base-network-status": {
 		"description": "Grant access to network status information",
 		"read": {
