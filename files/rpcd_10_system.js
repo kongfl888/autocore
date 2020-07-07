@@ -72,8 +72,9 @@ return L.Class.extend({
 
 		var fields = [
 			_('Hostname'),         boardinfo.hostname,
-			_('Model'),            boardinfo.model + cpubench.cpubench,
+			_('Model'),            "Rockchip RK3328: 4 Processors " + cpubench.cpubench,
 			_('CPU Info'),         cpuinfo.cpuinfo,
+			_('Architecture'),     'ARMv8 / Cortex-A53,64-bit',
 			_('Firmware Version'), (L.isObject(boardinfo.release) ? boardinfo.release.description + ' / ' : '') + (luciversion || '') + ' built by Mr.K',
 			_('Kernel Version'),   boardinfo.kernel,
 			_('Local Time'),       datestr,
