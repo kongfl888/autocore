@@ -27,11 +27,6 @@ var callCPUUsage = rpc.declare({
 	method: 'getCPUUsage'
 });
 
-var callKernelInfo = rpc.declare({
-	object: 'luci',
-	method: 'getKernelInfo'
-});
-
 return L.Class.extend({
 	title: _('System'),
 
@@ -42,7 +37,6 @@ return L.Class.extend({
 			L.resolveDefault(callCPUBench(), {}),
 			L.resolveDefault(callCPUInfo(), {}),
 			L.resolveDefault(callCPUUsage(), {}),
-			L.resolveDefault(callKernelInfo(), {}),
 			fs.lines('/usr/lib/lua/luci/version.lua')
 		]);
 	},
@@ -53,8 +47,7 @@ return L.Class.extend({
 		    cpubench    = data[2],
 		    cpuinfo     = data[3],
 		    cpuusage    = data[4],
-		    kernelinfo  = data[5],
-		    luciversion = data[6];
+		    luciversion = data[5];
 
 		luciversion = luciversion.filter(function(l) {
 			return l.match(/^\s*(luciname|luciversion)\s*=/);
@@ -82,7 +75,7 @@ return L.Class.extend({
 			_('Model'),            boardinfo.model + cpubench.cpubench,
 			_('CPU Info'),         cpuinfo.cpuinfo,
 			_('Firmware Version'), (L.isObject(boardinfo.release) ? boardinfo.release.description + ' / ' : '') + (luciversion || '') + ' built by Mr.K',
-			_('Kernel Version'),   L.isObject(kernelinfo.kernelinfo) ? boardinfo.kernel + ' (' + kernelinfo.kernelinfo + ')' : boardinfo.kernel,
+			_('Kernel Version'),   boardinfo.kernel,
 			_('Local Time'),       datestr,
 			_('Uptime'),           systeminfo.uptime ? '%t'.format(systeminfo.uptime) : null,
 			_('Load Average'),     Array.isArray(systeminfo.load) ? '%.2f, %.2f, %.2f'.format(

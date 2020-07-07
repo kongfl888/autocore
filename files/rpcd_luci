@@ -659,21 +659,6 @@ local methods = {
 		end
 	},
 
-	getKernelInfo = {
-		call = function()
-			local sys = require "luci.sys"
-			local kernelinfo = {}
-
-			kernelinfo.kernelinfo = sys.exec("uname -v")
-
-			if (kernelinfo.kernelinfo == nil) or (kernelinfo.kernelinfo == "") then
-				kernelinfo.kernelinfo = "#1 SMP PREEMPT "
-			end
-
-			return kernelinfo
-		end
-	},
-
 	getETHInfo = {
 		call = function()
 			local sys = require "luci.sys"
