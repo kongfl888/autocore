@@ -25,11 +25,13 @@ start()
 	done
 
 	a=$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq)
+	[ -z "$a" ] && a=$(uname -m)
 	b=$(echo -n ' : ')
 	c=$(cat /proc/cpuinfo | grep 'core id' | sort -u | wc -l)
-	d=$(echo -n ' Core ')
+	[ $c -ne 0 ] && d=$(echo -n ' Core ') || d=""
+	[ $c -eq 0 ] && c=""
 	e=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
-	f=$(echo -n ' Thread ')
+	[ ! -z "$c" ] && f=$(echo -n ' Thread ') || f=$(echo -n ' Processors ')
 	g=${a}${b}${c}${d}${e}${f}
 
 	mkdir -p /tmp/sysinfo
