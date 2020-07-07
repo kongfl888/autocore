@@ -125,4 +125,15 @@
 			"uci": [ "firewall" ]
 		}
 	}
+	"luci-base-network-status": {
+		"description": "Grant access to network status information",
+		"read": {
+			"ubus": {
+				"luci-rpc": [ "getBoardJSON", "getHostHints", "getNetworkDevices", "getWirelessDevices" ],
+				"network": [ "get_proto_handlers" ],
+				"network.interface": [ "dump" ]
+			},
+			"uci": [ "luci", "network", "wireless" ]
+		}
+	}
 }
