@@ -15,8 +15,8 @@ PKG_RELEASE:=27
 include $(INCLUDE_DIR)/package.mk
 
 define Package/autocore
-  TITLE:=x86/x64 auto core loadbalance script.
-  MAINTAINER:=Lean
+  TITLE:=auto core loadbalance script.
+  MAINTAINER:=Lean.and.K
   DEPENDS:=bc +lm-sensors +ethtool
 endef
 
@@ -39,6 +39,14 @@ define Package/autocore/install
 	$(INSTALL_BIN) ./files/ethinfo $(1)/sbin/ethinfo
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/status/include
 	$(INSTALL_DATA) ./files/rpcd_21_ethinfo.js $(1)/www/luci-static/resources/view/status/include/21_ethinfo.js
+endef
+
+define Package/$(PKG_NAME)/postinst
+#!/bin/sh
+    chmod a+x $${IPKG_INSTROOT}/etc/init.d/autocore >/dev/null 2>&1
+    chmod a+x $${IPKG_INSTROOT}/sbin/cpuinfo >/dev/null 2>&1
+    chmod a+x $${IPKG_INSTROOT}/sbin/ethinfo >/dev/null 2>&1
+    exit 0
 endef
 
 $(eval $(call BuildPackage,autocore))
